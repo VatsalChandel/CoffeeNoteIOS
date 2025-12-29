@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E16116C62F026D4B00A9CE64 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E16116C52F026D4B00A9CE64 /* FirebaseAuth */; };
+		E16116C82F026D4B00A9CE64 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E16116C72F026D4B00A9CE64 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E16116382F0146A400A9CE64 /* CoffeeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E16116C62F026D4B00A9CE64 /* FirebaseAuth in Frameworks */,
+				E16116C82F026D4B00A9CE64 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = CoffeeNote;
 			packageProductDependencies = (
+				E16116C52F026D4B00A9CE64 /* FirebaseAuth */,
+				E16116C72F026D4B00A9CE64 /* FirebaseFirestore */,
 			);
 			productName = CoffeeNote;
 			productReference = E16116382F0146A400A9CE64 /* CoffeeNote.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = E161162F2F0146A400A9CE64;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E16116C42F026D4B00A9CE64 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E16116392F0146A400A9CE64 /* Products */;
 			projectDirPath = "";
@@ -256,6 +268,7 @@
 				DEVELOPMENT_TEAM = 38RA9HT958;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CoffeeNote uses your location to help you log and map the coffee shops you visit.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +301,7 @@
 				DEVELOPMENT_TEAM = 38RA9HT958;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CoffeeNote uses your location to help you log and map the coffee shops you visit.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +346,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E16116C42F026D4B00A9CE64 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E16116C52F026D4B00A9CE64 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E16116C42F026D4B00A9CE64 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E16116C72F026D4B00A9CE64 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E16116C42F026D4B00A9CE64 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E16116302F0146A400A9CE64 /* Project object */;
 }
