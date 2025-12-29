@@ -9,9 +9,23 @@ import SwiftUI
 
 @main
 struct CoffeeNoteApp: App {
+
+    @StateObject private var authViewModel = AuthViewModel()
+
+    // Initialize Firebase when app launches
+    init() {
+        FirebaseManager.shared.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authViewModel.isAuthenticated {
+                ContentView()
+                    .environmentObject(authViewModel)
+            } else {
+                AuthView()
+                    .environmentObject(authViewModel)
+            }
         }
     }
 }
