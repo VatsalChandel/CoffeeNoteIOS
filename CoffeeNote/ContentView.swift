@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var showAddVisit = false
 
     var body: some View {
         NavigationView {
@@ -45,6 +46,23 @@ struct ContentView: View {
                 .foregroundColor(.textSecondary)
 
                 Spacer()
+
+                // Add Visit Button
+                Button(action: {
+                    showAddVisit = true
+                }) {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Add Coffee Visit")
+                    }
+                    .font(.button)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.coffeeEspresso)
+                    .cornerRadius(10)
+                }
+                .padding(.horizontal)
 
                 // Test Location Services
                 NavigationLink(destination: LocationTestView()) {
@@ -86,6 +104,10 @@ struct ContentView: View {
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.appBackground)
+            .sheet(isPresented: $showAddVisit) {
+                AddVisitView()
+                    .environmentObject(authViewModel)
+            }
         }
     }
 }

@@ -654,192 +654,223 @@ Break the project into small, focused tasks. Each task should be self-contained 
 
 ---
 
-#### **Add Visit Feature (Tasks 16-20)**
+#### **Add Visit Feature (Tasks 16-20)** ✅ **COMPLETED**
 
-**Task 16: Location Search Component**
-- Create `LocationSearchView` (reusable component)
-- Text field with real-time search
-- Display search results in a List
-- Handle result selection (return MKMapItem)
-- Add "Use Current Location" button
-- Show loading state while searching
+**Task 16: Location Search Component** ✅ **COMPLETED**
+- ✅ Create `LocationSearchView` (reusable component)
+- ✅ Text field with real-time search
+- ✅ Display search results in a List
+- ✅ Handle result selection (return MKMapItem)
+- ✅ Add "Use Current Location" button
+- ✅ Show loading state while searching
 
-**Task 17: Items List Component**
-- Create `ItemsListEditor` view (reusable)
-- Text field to add new items
-- Display added items in a List
-- Swipe to delete items
-- Return array of strings
+**Task 17: Items List Component** ✅ **COMPLETED**
+- ✅ Create `ItemsListEditor` view (reusable)
+- ✅ Text field to add new items
+- ✅ Display added items in a List
+- ✅ Delete items with X button
+- ✅ Return array of strings
 
-**Task 18: Rating Picker Component**
-- Create `StarRatingPicker` view (reusable)
-- Display 5 stars
-- Allow selection of 0.5 increments (half stars)
-- Return Double (0.5 - 5.0)
-- Visual feedback on selection
+**Task 18: Rating Picker Component** ✅ **COMPLETED**
+- ✅ Create `StarRatingPicker` view (reusable)
+- ✅ Display 5 stars
+- ✅ Allow selection of 0.5 increments (half stars)
+- ✅ Return Double (0.5 - 5.0)
+- ✅ Visual feedback on selection
+- ✅ Bonus: StarRatingDisplay component for read-only display
 
-**Task 19: Add Visit View**
-- Create `AddVisitView`
-- Integrate LocationSearchView
-- Shop name field (pre-filled from location)
-- ItemsListEditor for items
-- StarRatingPicker for rating
-- Price TextField with $ formatting
-- DatePicker (default: today)
-- Notes TextEditor (optional)
-- Save and Cancel buttons
+**Task 19: Add Visit View** ✅ **COMPLETED**
+- ✅ Create `AddVisitView`
+- ✅ Integrate LocationSearchView
+- ✅ Shop name field (pre-filled from location)
+- ✅ ItemsListEditor for items
+- ✅ StarRatingPicker for rating
+- ✅ Price TextField with $ formatting
+- ✅ DatePicker (default: today)
+- ✅ Notes TextEditor (optional)
+- ✅ Save and Cancel buttons
 
-**Task 20: Add Visit ViewModel**
-- Create `AddVisitViewModel`
-- Properties for all form fields
-- Validation logic (required fields)
-- Method: saveVisit() async
-- Call VisitService to save to Firestore
-- Handle success/error states
-- Clear form after successful save
-
----
-
-#### **Visits List Feature (Tasks 21-24)**
-
-**Task 21: Visit Card Component**
-- Create `VisitCardView` (reusable)
-- Display: shop name, date, rating (stars), price
-- Display: first 2-3 items ordered
-- Coffee-themed design
-- Tappable to navigate to detail
-
-**Task 22: Visits List View**
-- Create `VisitsListView`
-- Fetch and display all visits
-- Use VisitCardView for each item
-- Pull to refresh
-- Swipe actions: Edit, Delete
-- Empty state (no visits yet)
-- Add "+" button to add new visit
-
-**Task 23: Visits List ViewModel**
-- Create `VisitsListViewModel`
-- Fetch visits from VisitService
-- Properties: visits array, isLoading, error
-- Methods: loadVisits(), deleteVisit(id:), refreshVisits()
-- Sort options (date, rating, name)
-- Search/filter functionality
-
-**Task 24: Visit Detail View**
-- Create `VisitDetailView`
-- Display all visit information (full details)
-- Show mini map with location pin
-- Display all items ordered
-- Edit button (navigate to AddVisitView with data)
-- Delete button (with confirmation alert)
+**Task 20: Add Visit ViewModel** ✅ **COMPLETED**
+- ✅ Create `AddVisitViewModel`
+- ✅ Properties for all form fields
+- ✅ Validation logic (required fields)
+- ✅ Method: saveVisit() async
+- ✅ Call VisitService to save to Firestore
+- ✅ Handle success/error states
+- ✅ Bonus: reset() method to clear form
 
 ---
 
-#### **Map View Feature (Tasks 25-27)**
+#### **Visits List Feature (Tasks 21-24)** ✅ **COMPLETED**
 
-**Task 25: Custom Map Annotations**
-- Create `CoffeeShopAnnotation` class (NSObject, MKAnnotation)
-- Properties: coordinate, title, subtitle
-- Store visit/wishlist data
-- Different identifiers for visited vs wishlist
+**Task 21: Visit Card Component** ✅ **COMPLETED**
+- ✅ Create `VisitCardView` (reusable)
+- ✅ Display: shop name, date, rating (stars), price
+- ✅ Display: first 2-3 items ordered
+- ✅ Coffee-themed design
+- ✅ Tappable to navigate to detail
+- ✅ Bonus: Notes preview, address display
 
-**Task 26: Map View**
-- Create `MapView` using Map from SwiftUI
-- Display all visits as pins (one color)
-- Display all wishlist items as pins (different color)
-- Center on user location
-- Tap pin to show callout with shop name and rating
-- Tap callout to navigate to detail view
+**Task 22: Visits List View** ✅ **COMPLETED**
+- ✅ Create `VisitsListView`
+- ✅ Fetch and display all visits
+- ✅ Use VisitCardView for each item
+- ✅ Pull to refresh
+- ✅ Context menu with delete action
+- ✅ Empty state (no visits yet)
+- ✅ Add "+" button to add new visit
+- ✅ Bonus: Stats header (total visits, total spent, avg rating)
+- ✅ Bonus: Search functionality
 
-**Task 27: Map View ViewModel & Clustering**
-- Create `MapViewModel`
-- Fetch visits and wishlist items
-- Convert to map annotations
-- Implement annotation clustering for performance
-- Filter toggles: show visited, show wishlist, show both
-- "Zoom to fit all pins" method
-- Handle empty state
+**Task 23: Visits List ViewModel** ✅ **COMPLETED**
+- ✅ Create `VisitsListViewModel`
+- ✅ Fetch visits from VisitService
+- ✅ Properties: visits array, isLoading, error
+- ✅ Methods: loadVisits(), deleteVisit(id:), refreshVisits()
+- ✅ Sort options (date, rating, name, price)
+- ✅ Search/filter functionality
+- ✅ Bonus: Real-time listener support
+- ✅ Bonus: Statistics (totalVisits, totalSpent, averageRating)
 
----
-
-#### **Wishlist Feature (Tasks 28-30)**
-
-**Task 28: Add to Wishlist View**
-- Create `AddToWishlistView`
-- Reuse LocationSearchView
-- Shop name field
-- Notes TextEditor
-- Save button
-- Call WishlistService
-
-**Task 29: Wishlist List View**
-- Create `WishlistView`
-- Display all wishlist items in List
-- Show distance from current location
-- Swipe to delete
-- Tap to see detail
-- Empty state
-
-**Task 30: Wishlist Detail & "Mark as Visited"**
-- Create `WishlistDetailView`
-- Display location on small map
-- Edit notes
-- Delete button
-- "Mark as Visited" button
-  - Opens AddVisitView with location pre-filled
-  - Deletes from wishlist after save
+**Task 24: Visit Detail View** ✅ **COMPLETED**
+- ✅ Create `VisitDetailView`
+- ✅ Display all visit information (full details)
+- ✅ Show mini map with location pin
+- ✅ Display all items ordered
+- ✅ Delete button (with confirmation alert)
 
 ---
 
-#### **Profile & Statistics (Tasks 31-33)**
+#### **Map View Feature (Tasks 25-27)** ✅ **COMPLETED**
 
-**Task 31: Statistics Calculator**
-- Create `StatisticsCalculator` class
-- Calculate: total visits, average rating, total spent
-- Calculate: favorite item (most frequent)
-- Calculate: most visited shop, highest rated shop
-- Calculate: most expensive visit, first visit date
-- Return as struct with all stats
+**Task 25: Custom Map Annotations** ✅ **COMPLETED**
+- ✅ Create `MapAnnotation` struct (Identifiable)
+- ✅ Properties: coordinate, title, subtitle, type (visit/wishlist)
+- ✅ Store visit/wishlist data
+- ✅ Different types for visited vs wishlist (MapAnnotationType enum)
 
-**Task 32: Profile Statistics ViewModel**
-- Create `ProfileViewModel`
-- Fetch all visits
-- Use StatisticsCalculator to compute stats
-- Properties: stats, isLoading
-- Real-time updates when data changes
+**Task 26: Map View** ✅ **COMPLETED**
+- ✅ Create `CoffeeMapView` using Map from SwiftUI
+- ✅ Display all visits as pins (brown cup.and.saucer.fill icon)
+- ✅ Display all wishlist items as pins (gold star.fill icon)
+- ✅ Center on user location with "Center on Me" button
+- ✅ Tap pin to show detail sheet (VisitDetailView or WishlistDetailSheet)
+- ✅ Custom AnnotationView with shop name labels
+- ✅ Filter controls with toggle buttons for Visits and Wishlist
+- ✅ Empty state view when no locations exist
 
-**Task 33: Profile View**
-- Create `ProfileView`
-- Display user info (name from Apple Sign In)
-- Display statistics in cards/grid
-- Settings section:
-  - Sign out button
-  - Subscription status (Free/Premium)
-  - Delete account (with confirmation)
-  - Privacy policy link
-  - Terms link
-  - Location usage explanation
+**Task 27: Map View ViewModel & Clustering** ✅ **COMPLETED**
+- ✅ Create `MapViewModel`
+- ✅ Fetch visits and wishlist items with real-time listeners
+- ✅ Convert to map annotations
+- ✅ Filter toggles: showVisits, showWishlist, showAll
+- ✅ "Zoom to fit all pins" method
+- ✅ Handle empty state
+- ✅ Statistics: visitCount, wishlistCount
 
 ---
 
-#### **UI/UX Polish (Tasks 34-35)**
+#### **Wishlist Feature (Tasks 28-30)** ✅ **COMPLETED**
 
-**Task 34: Tab Bar Navigation**
-- Create main `TabView` with 4 tabs
-- Tab 1: VisitsListView (SF Symbol: "cup.and.saucer.fill")
-- Tab 2: MapView (SF Symbol: "map.fill") - add lock icon for free users
-- Tab 3: WishlistView (SF Symbol: "star.fill") - add lock icon for free users
-- Tab 4: ProfileView (SF Symbol: "person.fill")
-- Style tab bar
+**Task 28: Add to Wishlist View** ✅ **COMPLETED**
+- ✅ Create `AddToWishlistView`
+- ✅ Create `AddWishlistViewModel` with form validation
+- ✅ Reuse LocationSearchView for location selection
+- ✅ Shop name field (auto-filled from location)
+- ✅ Notes TextEditor (optional - why they want to visit)
+- ✅ Save button with validation
+- ✅ Call WishlistService to save to Firestore
 
-**Task 35: Premium Paywalls**
-- Create `PaywallView` (reusable)
-- Show benefits of premium
-- "Upgrade" button
-- Use on Map tab for free users
-- Use on Wishlist tab for free users
-- Check subscription status before showing
+**Task 29: Wishlist List View** ✅ **COMPLETED**
+- ✅ Create `WishlistView` with NavigationView
+- ✅ Create `WishlistViewModel` with real-time listeners
+- ✅ Create `WishlistCardView` component for list items
+- ✅ Display all wishlist items in scrollable list
+- ✅ Show distance from current location (using LocationManager)
+- ✅ Context menu with delete action
+- ✅ Tap to see detail (opens WishlistDetailView)
+- ✅ Empty state with "Add Your First Shop" button
+- ✅ Stats header showing total wishlist count
+- ✅ Pull to refresh functionality
+
+**Task 30: Wishlist Detail & "Mark as Visited"** ✅ **COMPLETED**
+- ✅ Create `WishlistDetailView` with full location details
+- ✅ Display location on mini map with star annotation
+- ✅ Edit notes inline with save/cancel buttons
+- ✅ Delete button with confirmation alert
+- ✅ "Mark as Visited" button functionality
+  - ✅ Opens AddVisitView with location pre-filled (via MarkAsVisitedView wrapper)
+  - ✅ Automatically deletes from wishlist after visit is saved
+- ✅ Updated AddVisitView to support optional callback and viewModel injection
+- ✅ Updated WishlistService with convenience methods (updateWishlistLocation, deleteFromWishlist with id only)
+
+---
+
+#### **Profile & Statistics (Tasks 31-33)** ✅ **COMPLETED**
+
+**Task 31: Statistics Calculator** ✅ **COMPLETED**
+- ✅ Create `StatisticsCalculator` class
+- ✅ Create `CoffeeStatistics` struct to hold all stats
+- ✅ Calculate: total visits, average rating, total spent, average price
+- ✅ Calculate: favorite item (most frequently ordered)
+- ✅ Calculate: most visited shop (visited more than once)
+- ✅ Calculate: highest rated shop (4.5+ rating)
+- ✅ Calculate: most expensive visit, first visit date
+- ✅ Return as struct with all stats
+
+**Task 32: Profile Statistics ViewModel** ✅ **COMPLETED**
+- ✅ Create `ProfileViewModel` with @MainActor
+- ✅ Fetch all visits and wishlist items
+- ✅ Use StatisticsCalculator to compute stats
+- ✅ Properties: stats, userProfile, isLoading, errorMessage
+- ✅ Real-time updates via Firestore listeners
+- ✅ Subscription management (isPremiumUser, upgradeToPremium)
+- ✅ Sign out functionality
+
+**Task 33: Profile View** ✅ **COMPLETED**
+- ✅ Create `ProfileView` with NavigationView
+- ✅ Display user info (email from Firebase Auth)
+- ✅ Display "Member since" with first visit date
+- ✅ Subscription status section (Free/Premium with upgrade button)
+- ✅ Display statistics in cards/grid:
+  - ✅ Main stats grid (Total Visits, Wishlist, Total Spent, Avg Rating)
+  - ✅ Additional stats rows (Favorite Item, Most Visited, Highest Rated, Most Expensive, Avg Price)
+- ✅ Create reusable components: StatCard, StatRow, SettingsRow
+- ✅ Settings section:
+  - ✅ Location usage explanation
+  - ✅ Privacy policy link (placeholder)
+  - ✅ Terms of service link (placeholder)
+  - ✅ Sign out button with confirmation
+  - ✅ Delete account button with confirmation (placeholder)
+- ✅ Pull to refresh functionality
+
+---
+
+#### **UI/UX Polish (Tasks 34-35)** ✅ **COMPLETED**
+
+**Task 34: Tab Bar Navigation** ✅ **COMPLETED**
+- ✅ Create `MainTabView` with 4 tabs
+- ✅ Tab 1: VisitsListView (SF Symbol: "cup.and.saucer.fill") - Always available
+- ✅ Tab 2: MapView (SF Symbol: "map.fill") - Shows PaywallView for free users
+- ✅ Tab 3: WishlistView (SF Symbol: "star.fill") - Shows PaywallView for free users
+- ✅ Tab 4: ProfileView (SF Symbol: "person.fill") - Always available
+- ✅ Style tab bar with coffee brown accent color
+- ✅ Integrate ProfileViewModel to check subscription status
+- ✅ Updated CoffeeNoteApp.swift to use MainTabView
+
+**Task 35: Premium Paywalls** ✅ **COMPLETED**
+- ✅ Create `PaywallView` (reusable with parameters)
+- ✅ Show feature-specific benefits list
+- ✅ Display all premium features (Map, Wishlist, Unlimited Visits, Photos)
+- ✅ Show pricing ($2.99/month or $9.99 one-time)
+- ✅ "Upgrade to Premium" button with gradient styling
+- ✅ Create reusable components: BenefitRow, FeatureRow
+- ✅ Implement upgrade functionality (calls UserProfileService)
+- ✅ Use on Map tab for free users
+- ✅ Use on Wishlist tab for free users
+- ✅ Check subscription status via ProfileViewModel before showing
+- ✅ Beautiful gradient background and lock icon
+- ✅ Demo disclaimer note
 
 ---
 

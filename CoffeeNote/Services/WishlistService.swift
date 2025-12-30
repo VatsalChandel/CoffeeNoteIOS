@@ -31,6 +31,12 @@ class WishlistService {
         print("✅ Added to wishlist: \(location.shopName)")
     }
 
+    /// Add a location to the wishlist (named parameter version)
+    /// - Parameter location: WantToGoLocation to add
+    func addToWishlist(location: WantToGoLocation) async throws {
+        try await addToWishlist(location)
+    }
+
     // MARK: - Read
 
     /// Fetch all wishlist items for a user
@@ -105,6 +111,12 @@ class WishlistService {
         print("✅ Wishlist item updated: \(location.shopName)")
     }
 
+    /// Update an existing wishlist location (alias for consistency)
+    /// - Parameter location: WantToGoLocation with updated data
+    func updateWishlistLocation(location: WantToGoLocation) async throws {
+        try await updateWishlistItem(location)
+    }
+
     // MARK: - Delete
 
     /// Delete a wishlist item
@@ -115,6 +127,18 @@ class WishlistService {
         let collection = wishlistCollection(for: userId)
         try await collection.document(locationId).delete()
         print("✅ Wishlist item deleted: \(locationId)")
+    }
+
+    /// Delete a wishlist item (convenience method)
+    /// - Parameter id: Location ID in format "userId_timestamp"
+    func deleteFromWishlist(id: String) async throws {
+        // Extract userId from the id (format: userId_timestamp)
+        let components = id.split(separator: "_")
+        guard let userIdPart = components.first else {
+            throw NSError(domain: "WishlistService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid location ID format"])
+        }
+        let userId = String(userIdPart)
+        try await deleteFromWishlist(locationId: id, for: userId)
     }
 
     // MARK: - Query Methods
