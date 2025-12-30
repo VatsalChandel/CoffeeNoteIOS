@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CoffeeNote - Track your coffee shop visits, rate your experiences, and discover new cafes. Your personal coffee journey journal.">
+    <meta name="keywords" content="coffee, coffee shop, tracking app, coffee journal, cafe finder, coffee ratings">
+    <title>CoffeeNote - Track Every Coffee Adventure</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coffee-brown': '#734F38',
+                        'coffee-gold': '#D9A64A',
+                        'coffee-cream': '#F5E6D3',
+                        'coffee-dark': '#2C1810',
+                        'coffee-espresso': '#3E2723',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #734F38 0%, #D9A64A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #f5e6d3 0%, #e0d4c5 100%);
+            border: 2px dashed #D9A64A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            border-radius: 1rem;
+        }
+
+        .phone-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #f5e6d3 0%, #e0d4c5 100%);
+            border: 8px solid #2C1810;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 smooth-scroll">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-coffee-brown to-coffee-gold rounded-xl flex items-center justify-center">
+                        <span class="text-white text-xl font-bold">☕</span>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">CoffeeNote</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-coffee-brown transition">Features</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-coffee-brown transition">Pricing</a>
+                    <a href="#faq" class="text-gray-700 hover:text-coffee-brown transition">FAQ</a>
+                    <a href="#screenshots" class="text-gray-700 hover:text-coffee-brown transition">Screenshots</a>
+                </div>
+                <a href="#download" class="bg-gradient-to-r from-coffee-brown to-coffee-gold text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition">
+                    Download
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-20 bg-gradient-to-b from-coffee-cream to-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <!-- Left: Text Content -->
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Track Every <span class="gradient-text">Coffee Adventure</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Your personal journal for discovering, rating, and remembering amazing coffee shops. Never forget a great cup again.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#download" class="inline-flex items-center justify-center bg-gradient-to-r from-coffee-brown to-coffee-gold text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Coming Soon to App Store
+                        </a>
+                        <a href="#features" class="inline-flex items-center justify-center border-2 border-coffee-brown text-coffee-brown px-8 py-4 rounded-full font-semibold text-lg hover:bg-coffee-brown hover:text-white transition">
+                            Learn More
+                        </a>
+                    </div>
+                    <p class="mt-6 text-sm text-gray-500">
+                        🎉 Currently in beta testing • Sign up for early access
+                    </p>
+                </div>
+
+                <!-- Right: Phone Mockup Placeholder -->
+                <div class="lg:w-1/2 flex justify-center">
+                    <div class="phone-frame">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                            <svg class="w-20 h-20 text-coffee-gold mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <p class="text-coffee-brown font-semibold text-lg">App Screenshot</p>
+                            <p class="text-sm text-gray-600 mt-2">Replace with:<br/>assets/images/hero-mockup.png</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Everything You Need to Track Your Coffee Journey</h2>
+                <p class="text-xl text-gray-600">Discover, rate, and remember every coffee shop you visit</p>
+            </div>
+
+            <!-- Feature 1: Track Visits -->
+            <div class="flex flex-col lg:flex-row items-center mb-20">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                        <div class="text-center p-8">
+                            <img src="assets/images/features/visits.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                        </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-3xl font-bold mb-4">📍 Track Your Visits</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Log every coffee shop you visit with detailed information. Rate your experience, track what you ordered, note the price, and add personal notes to remember why it was special.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Rate shops with 0.5 star increments</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Track items ordered and prices</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Add notes and memories</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Search and sort your visit history</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2: Map View -->
+            <div class="flex flex-col lg:flex-row-reverse items-center mb-20">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pl-12">
+                    <div class="text-center p-8">
+                        <img src="assets/images/features/map.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="inline-block bg-coffee-gold text-white px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                        ⭐ PREMIUM
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4">🗺️ Interactive Map View</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        See all your visited coffee shops and wishlist locations on a beautiful interactive map. Discover patterns in your coffee adventures and find new places to explore nearby.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Custom pins for visits and wishlist items</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Filter by visits or wishlist</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">"Center on Me" for quick location finding</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 3: Wishlist -->
+            <div class="flex flex-col lg:flex-row items-center mb-20">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <div class="text-center p-8">
+                        <img src="assets/images/features/wishlist.PNG" alt="Wishlist Feature Screenshot" class="mx-auto mb-4" width="300">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="inline-block bg-coffee-gold text-white px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                        ⭐ PREMIUM
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4">🔖 Save Your Wishlist</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Keep track of coffee shops you want to visit. Save recommendations from friends, note why you want to go, and mark them as visited when you finally make it there.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Add notes about why you want to visit</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">See distance to each location</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Mark as visited to auto-create visit entry</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 4: Statistics -->
+            <div class="flex flex-col lg:flex-row-reverse items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pl-12">
+                   <div class="text-center p-8">
+                        <img src="assets/images/features/profile.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-3xl font-bold mb-4">📊 Track Your Statistics</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Get insights into your coffee journey with comprehensive statistics. See your total visits, average ratings, favorite items, most visited shops, and total spending.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Total visits and spending</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Average ratings across all visits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Favorite items and most visited shops</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Gallery -->
+    <section id="screenshots" class="py-20 bg-gradient-to-b from-white to-coffee-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">See CoffeeNote in Action</h2>
+                <p class="text-xl text-gray-600">Swipe through screenshots of the app</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Screenshot Placeholder 1 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/features/profile.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+
+                <!-- Screenshot Placeholder 2 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/screenshots/visitForm.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+
+                <!-- Screenshot Placeholder 3 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/screenshots/loggedVisitMap.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+
+                <!-- Screenshot Placeholder 4 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/features/map.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+
+                <!-- Screenshot Placeholder 5 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/screenshots/bookmark.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+
+                <!-- Screenshot Placeholder 6 -->
+                <div class="text-center p-8">
+                    <img src="assets/images/screenshots/bookmarked.PNG" alt="Visits Feature Screenshot" class="mx-auto mb-4" width="300">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-600">Choose the plan that works for you</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Free Tier -->
+                <div class="border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl transition">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Free</h3>
+                        <div class="text-4xl font-bold mb-2">$0</div>
+                        <p class="text-gray-600">Perfect for casual coffee drinkers</p>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Track up to <strong>10 coffee shops</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Rate and review visits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Track items ordered and prices</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Basic statistics</span>
+                        </li>
+                        <li class="flex items-start text-gray-400">
+                            <svg class="w-6 h-6 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span>No map view</span>
+                        </li>
+                        <li class="flex items-start text-gray-400">
+                            <svg class="w-6 h-6 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span>No wishlist</span>
+                        </li>
+                    </ul>
+
+                    <button class="w-full border-2 border-coffee-brown text-coffee-brown py-3 rounded-full font-semibold hover:bg-coffee-brown hover:text-white transition">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Premium Tier -->
+                <div class="border-2 border-coffee-gold rounded-2xl p-8 bg-gradient-to-br from-coffee-cream to-white relative hover:shadow-2xl transition">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-coffee-gold text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            ⭐ POPULAR
+                        </span>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Premium</h3>
+                        <div class="text-4xl font-bold mb-2 gradient-text">$2.99<span class="text-lg">/mo</span></div>
+                        <p class="text-gray-600">or $9.99 one-time payment</p>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span><strong>Unlimited</strong> coffee shop visits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Everything in Free, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span><strong>Interactive map view</strong> with custom pins</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span><strong>Wishlist</strong> to save places you want to visit</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Advanced statistics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Photo uploads <span class="text-sm text-gray-500">(coming soon)</span></span>
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-gradient-to-r from-coffee-brown to-coffee-gold text-white py-3 rounded-full font-semibold hover:shadow-lg transition transform hover:-translate-y-1">
+                        Upgrade to Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-gradient-to-b from-white to-coffee-cream">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600">Everything you need to know about CoffeeNote</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">How does location tracking work?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>CoffeeNote uses your location only when you choose to add a coffee shop visit. We use MapKit to help you search for coffee shops and save their locations. Your location data is stored securely in Firebase and is never shared with third parties. You can disable location access at any time in your iPhone settings.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Is my data private and secure?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Absolutely. Your data is stored securely in Firebase (Google Cloud) with industry-standard encryption. We never sell your data to third parties. We only collect the information necessary to provide the app's features: your email, coffee shop visits, and location data for shops you've logged. You can delete your account and all associated data at any time.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Can I cancel my Premium subscription anytime?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Yes! You can cancel your Premium subscription at any time through your iPhone's Settings app. Go to Settings → [Your Name] → Subscriptions → CoffeeNote, and tap Cancel Subscription. You'll continue to have Premium access until the end of your billing period. If you purchased the one-time lifetime option, you'll have Premium forever with no recurring charges.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">What happens if I hit the 10 shop limit on Free?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Once you reach 10 coffee shops on the Free plan, you won't be able to add new visits. You can still view, edit, and delete your existing visits. To continue tracking more shops, you can upgrade to Premium for unlimited visits. All your existing data will remain intact when you upgrade.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">How do I restore my purchases on a new device?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>If you purchased Premium and get a new device, simply sign in with the same Apple ID you used to make the purchase. Then, go to Profile → Settings → Restore Purchases. Your Premium subscription will be restored automatically. Make sure you're signed into the same Apple ID in the App Store.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Can I export my data?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Data export functionality is coming in a future update. When available, you'll be able to export all your visit data to CSV format. For now, all your data is safely stored in your account and syncs across all your devices signed in with the same account.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Does the app work offline?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>You can view your existing visits and statistics offline. However, adding new visits, searching for coffee shops, and viewing the map requires an internet connection. Any changes you make offline will sync automatically when you reconnect to the internet.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Do you share my location data with anyone?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p><strong>Absolutely not.</strong> We never share, sell, or monetize your location data. The coffee shop locations you save are stored securely in your private Firebase account and are only used to power the app's features (map view, distance calculations, etc.). We respect your privacy.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 9 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">Can I track multiple visits to the same coffee shop?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Yes! Each visit is logged separately, so you can track multiple visits to the same coffee shop. This lets you see how your experiences change over time, try different items, and track your favorite spots. The statistics will show you which shops you visit most frequently.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 10 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <button class="w-full text-left flex justify-between items-center" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-coffee-brown">How do I delete my account?</h3>
+                        <svg class="w-6 h-6 text-coffee-gold transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>You can delete your account at any time by going to Profile → Settings → Delete Account. This will permanently remove all your data from our servers, including all visits, wishlist items, and account information. This action cannot be undone. If you have an active Premium subscription, make sure to cancel it first in the App Store.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="py-20 bg-gradient-to-br from-coffee-brown to-coffee-gold text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Start Your Coffee Journey Today</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Join coffee enthusiasts tracking their favorite shops and discovering new cafes.
+            </p>
+            <a href="#" class="inline-flex items-center bg-white text-coffee-brown px-10 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition transform hover:-translate-y-1">
+                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download on the App Store
+            </a>
+            <p class="mt-6 text-sm text-white/80">
+                Coming soon • Sign up for early access
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-coffee-brown to-coffee-gold rounded-xl flex items-center justify-center">
+                            <span class="text-white text-xl font-bold">☕</span>
+                        </div>
+                        <span class="text-2xl font-bold">CoffeeNote</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Your personal coffee journey tracker.
+                    </p>
+                </div>
+
+                <!-- Product -->
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#features" class="hover:text-coffee-gold transition">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-coffee-gold transition">Pricing</a></li>
+                        <li><a href="#screenshots" class="hover:text-coffee-gold transition">Screenshots</a></li>
+                        <li><a href="#faq" class="hover:text-coffee-gold transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="privacy.html" class="hover:text-coffee-gold transition">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-coffee-gold transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="mailto:support@coffeenote.app" class="hover:text-coffee-gold transition">support@coffeenote.app</a></li>
+                        <li><a href="#faq" class="hover:text-coffee-gold transition">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 CoffeeNote. All rights reserved. Made with ☕ and SwiftUI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

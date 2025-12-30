@@ -292,15 +292,80 @@ CoffeNote is an app for coffee enthusiasts to track the coffee shops they've vis
 
 ---
 
-## 💰 Monetization (Phase 2 - Future)
+## 💰 Monetization & In-App Purchases (Phase 2)
 
-### StoreKit Integration
-- [ ] Set up StoreKit configuration file
-- [ ] Create in-app purchase products in App Store Connect
-- [ ] Implement StoreKit 2 for purchases
-- [ ] Create paywall UI
-- [ ] Implement purchase restoration
-- [ ] Handle subscription status
+### In-App Purchase Implementation (Tasks 36-41)
+
+**Task 36: StoreKit Configuration File** ⏸️ **NEXT**
+- [ ] Create `.storekit` configuration file in Xcode
+- [ ] Add product: Monthly Subscription (`coffee_note_premium_monthly` - $2.99/month)
+- [ ] Add product: Lifetime Purchase (`coffee_note_premium_lifetime` - $9.99 one-time)
+- [ ] Configure subscription group and duration
+- [ ] Set up product localizations
+- [ ] Enable StoreKit testing in scheme
+
+**Task 37: SubscriptionManager Service** ⏸️ **NEXT**
+- [ ] Create `SubscriptionManager` class using StoreKit 2
+- [ ] Implement product fetching from App Store
+- [ ] Method: `loadProducts() async -> [Product]`
+- [ ] Method: `purchase(product: Product) async throws -> Transaction?`
+- [ ] Handle transaction states (purchased, pending, failed)
+- [ ] Transaction listener for updates
+- [ ] Store subscription status in UserDefaults/Firestore
+
+**Task 38: Receipt Validation & Verification** ⏸️ **NEXT**
+- [ ] Implement local receipt validation with StoreKit 2
+- [ ] Verify transaction authenticity
+- [ ] Update UserProfile subscription tier in Firestore
+- [ ] Handle subscription renewals automatically
+- [ ] Handle subscription cancellations
+- [ ] Sync subscription status across devices
+
+**Task 39: Update PaywallView for Real Purchases** ⏸️ **NEXT**
+- [ ] Integrate SubscriptionManager into PaywallView
+- [ ] Fetch and display real products with prices
+- [ ] Replace mock upgrade with real purchase flow
+- [ ] Show loading state during purchase
+- [ ] Handle purchase success (show confirmation, dismiss paywall)
+- [ ] Handle purchase errors (show user-friendly messages)
+- [ ] Add purchase completion animations
+
+**Task 40: Restore Purchases** ⏸️ **NEXT**
+- [ ] Add "Restore Purchases" button in ProfileView
+- [ ] Implement restore functionality in SubscriptionManager
+- [ ] Check for existing transactions
+- [ ] Update subscription status if valid purchase found
+- [ ] Show success/failure alert to user
+- [ ] Required by Apple for all apps with IAP
+
+**Task 41: Subscription Management UI** ⏸️ **NEXT**
+- [ ] Update ProfileView subscription section
+- [ ] Show active subscription details (plan, renewal date)
+- [ ] Link to Apple's subscription management
+- [ ] Show purchase history
+- [ ] Add "Restore Purchases" button
+- [ ] Handle subscription expiration gracefully
+- [ ] Test all subscription states (active, expired, grace period)
+
+### App Store Connect Setup (Production Only)
+- [ ] Create products in App Store Connect
+  - [ ] Monthly auto-renewable subscription ($2.99/month)
+  - [ ] One-time non-consumable purchase ($9.99)
+- [ ] Create subscription group
+- [ ] Set up pricing in all regions
+- [ ] Configure subscription benefits
+- [ ] Add product screenshots/descriptions
+- [ ] Submit for review with app
+
+### Testing Strategy
+- [ ] Test with StoreKit configuration file (local)
+- [ ] Test with sandbox accounts (App Store Connect)
+- [ ] Test all purchase flows (success, failure, cancellation)
+- [ ] Test restore purchases on multiple devices
+- [ ] Test subscription renewal
+- [ ] Test subscription cancellation
+- [ ] Test family sharing (if enabled)
+- [ ] Test edge cases (no internet, App Store unavailable)
 
 ### Premium Features
 - [ ] Photo uploads for each visit
