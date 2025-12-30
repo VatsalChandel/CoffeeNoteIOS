@@ -31,10 +31,23 @@ class MapViewModel: ObservableObject {
     private var wishlistLocations: [WantToGoLocation] = []
     private let visitService = VisitService()
     private let wishlistService = WishlistService()
+    private let locationManager = LocationManager()
+    private var cachedUserLocation: CLLocation?
     nonisolated(unsafe) private var visitListener: ListenerRegistration?
     nonisolated(unsafe) private var wishlistListener: ListenerRegistration?
 
     // MARK: - Initialization
+    init() {
+        // Preload user location for faster "Center on Me" functionality
+        Task {
+            do {
+                cachedUserLocation = try await locationManager.getCurrentLocation()
+            } catch {
+                print("⚠️ Could not preload user location: \(error.localizedDescription)")
+            }
+        }
+    }
+
     deinit {
         stopListening()
     }
@@ -168,10 +181,21 @@ class MapViewModel: ObservableObject {
 
     /// Center map on user's location
     func centerOnUserLocation() {
-        let locationManager = LocationManager()
         Task {
             do {
-                let location = try await locationManager.getCurrentLocation()
+                // Use cached location if it's recent (within 5 minutes)
+                let location: CLLocation
+                if let cached = cachedUserLocation,
+                   abs(cached.timestamp.timeIntervalSinceNow) < 300 {
+                    // Use cached location for instant centering
+                    location = cached
+                } else {
+                    // Get fresh location and cache it
+                    location = try await locationManager.getCurrentLocation()
+                    cachedUserLocation = location
+                }
+
+                // Center map on location
                 region = MKCoordinateRegion(
                     center: location.coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
