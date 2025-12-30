@@ -135,6 +135,7 @@ struct AddVisitView: View {
 
                         TextEditor(text: $viewModel.notes)
                             .frame(height: 100)
+                            .scrollContentBackground(.hidden)
                             .padding(8)
                             .background(Color.cardBackground)
                             .cornerRadius(10)

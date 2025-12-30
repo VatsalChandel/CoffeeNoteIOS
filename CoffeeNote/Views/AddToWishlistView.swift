@@ -74,6 +74,7 @@ struct AddToWishlistView: View {
 
                         TextEditor(text: $viewModel.notes)
                             .frame(height: 120)
+                            .scrollContentBackground(.hidden)
                             .padding(8)
                             .background(Color.cardBackground)
                             .cornerRadius(10)

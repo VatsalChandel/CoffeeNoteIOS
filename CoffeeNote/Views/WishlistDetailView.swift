@@ -102,6 +102,7 @@ struct WishlistDetailView: View {
                             VStack(spacing: 8) {
                                 TextEditor(text: $notes)
                                     .frame(height: 100)
+                                    .scrollContentBackground(.hidden)
                                     .padding(8)
                                     .background(Color.cardBackground)
                                     .cornerRadius(10)
