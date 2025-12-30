@@ -21,6 +21,7 @@ class AuthViewModel: ObservableObject {
 
     // MARK: - Services
     private let authService = AuthenticationService()
+    private let profileService = UserProfileService()
 
     // MARK: - Initialization
     init() {
@@ -57,9 +58,17 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
 
         do {
+            // Create Firebase Auth user
             let user = try await authService.signUp(email: email, password: password)
             self.currentUser = user
             self.isAuthenticated = true
+
+            // Create user profile in Firestore
+            _ = try await profileService.createUserProfile(
+                userId: user.uid,
+                email: email
+            )
+            print("✅ User profile created in Firestore")
         } catch {
             self.errorMessage = error.localizedDescription
             print("❌ Sign up error: \(error.localizedDescription)")

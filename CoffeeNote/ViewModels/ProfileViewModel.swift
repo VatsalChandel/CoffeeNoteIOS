@@ -27,6 +27,7 @@ class ProfileViewModel: ObservableObject {
     private let profileService = UserProfileService()
     nonisolated(unsafe) private var visitListener: ListenerRegistration?
     nonisolated(unsafe) private var wishlistListener: ListenerRegistration?
+    nonisolated(unsafe) private var profileListener: ListenerRegistration?
 
     // MARK: - Initialization
     deinit {
@@ -35,10 +36,15 @@ class ProfileViewModel: ObservableObject {
 
     // MARK: - Data Loading
 
-    /// Start listening for real-time updates to visits and wishlist
+    /// Start listening for real-time updates to visits, wishlist, and user profile
     func startListening(for userId: String) {
         isLoading = true
-        loadUserProfile(for: userId)
+
+        // Listen to user profile (for subscription tier changes)
+        profileListener = profileService.listenToUserProfile(userId: userId) { [weak self] profile in
+            self?.userProfile = profile
+            print("✅ Real-time update: User profile subscription tier")
+        }
 
         // Listen to visits
         visitListener = visitService.listenToVisits(for: userId) { [weak self] visits in
@@ -56,8 +62,10 @@ class ProfileViewModel: ObservableObject {
 
     /// Stop listening for real-time updates
     nonisolated func stopListening() {
+        profileListener?.remove()
         visitListener?.remove()
         wishlistListener?.remove()
+        profileListener = nil
         visitListener = nil
         wishlistListener = nil
     }
