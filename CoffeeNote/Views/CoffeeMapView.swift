@@ -13,7 +13,7 @@ struct CoffeeMapView: View {
 
     @StateObject private var viewModel = MapViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State private var selectedVisit: CoffeeShopVisit?
+    @State private var selectedMapPin: MapPin?
     @State private var selectedWishlistLocation: WantToGoLocation?
 
     var body: some View {
@@ -70,8 +70,8 @@ struct CoffeeMapView: View {
                     }
                 }
             }
-            .sheet(item: $selectedVisit) { visit in
-                VisitDetailView(visit: visit)
+            .sheet(item: $selectedMapPin) { mapPin in
+                ShopVisitsDetailView(mapPin: mapPin)
                     .environmentObject(authViewModel)
             }
             .sheet(item: $selectedWishlistLocation) { location in
@@ -159,9 +159,7 @@ struct CoffeeMapView: View {
 
         switch annotation.type {
         case .visit:
-            if let visit = annotation.visit {
-                selectedVisit = visit
-            }
+            selectedMapPin = annotation
         case .wishlist:
             if let location = annotation.wishlistLocation {
                 selectedWishlistLocation = location
@@ -177,10 +175,23 @@ struct AnnotationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: pinIcon)
-                .font(.title)
-                .foregroundColor(pinColor)
-                .shadow(radius: 3)
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: pinIcon)
+                    .font(.title)
+                    .foregroundColor(pinColor)
+                    .shadow(radius: 3)
+                
+                // Badge for multiple visits
+                if annotation.type == .visit && annotation.visitCount > 1 {
+                    Text("\(annotation.visitCount)")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(4)
+                        .background(Color.coffeeRed)
+                        .clipShape(Circle())
+                        .offset(x: 8, y: -8)
+                }
+            }
 
             Text(annotation.title)
                 .font(.caption2)

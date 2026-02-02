@@ -14,7 +14,7 @@ enum MapAnnotationType {
     case wishlist
 }
 
-/// Identifiable pin for map display
+/// Identifiable pin for map display - can represent multiple visits to the same shop
 struct MapPin: Identifiable {
     let id: String
     let coordinate: CLLocationCoordinate2D
@@ -23,23 +23,70 @@ struct MapPin: Identifiable {
     let type: MapAnnotationType
 
     // Optional data for detail view
-    var visit: CoffeeShopVisit?
+    var visits: [CoffeeShopVisit] = [] // Changed from single visit to array
     var wishlistLocation: WantToGoLocation?
+
+    // MARK: - Computed Properties
+    
+    /// Number of visits to this location
+    var visitCount: Int {
+        visits.count
+    }
+    
+    /// Average rating across all visits
+    var averageRating: Double {
+        guard !visits.isEmpty else { return 0 }
+        let sum = visits.reduce(0.0) { $0 + $1.rating }
+        return sum / Double(visits.count)
+    }
+    
+    /// Average price across all visits
+    var averagePrice: Double {
+        guard !visits.isEmpty else { return 0 }
+        let sum = visits.reduce(0.0) { $0 + $1.price }
+        return sum / Double(visits.count)
+    }
+    
+    /// Most recent visit
+    var mostRecentVisit: CoffeeShopVisit? {
+        visits.max(by: { $0.dateVisited < $1.dateVisited })
+    }
 
     // MARK: - Initializers
 
-    /// Create annotation from a visit
-    init(visit: CoffeeShopVisit) {
-        self.id = visit.id
+    /// Create annotation from multiple visits to the same shop
+    init(visits: [CoffeeShopVisit]) {
+        guard let firstVisit = visits.first else {
+            fatalError("Cannot create MapPin with empty visits array")
+        }
+        
+        // Use a consistent ID based on location (group by shop)
+        let locationKey = "\(firstVisit.latitude)_\(firstVisit.longitude)"
+        self.id = firstVisit.placeID ?? locationKey
+        
         self.coordinate = CLLocationCoordinate2D(
-            latitude: visit.latitude,
-            longitude: visit.longitude
+            latitude: firstVisit.latitude,
+            longitude: firstVisit.longitude
         )
-        self.title = visit.shopName
-        self.subtitle = "⭐ \(String(format: "%.1f", visit.rating)) • $\(String(format: "%.2f", visit.price))"
+        self.title = firstVisit.shopName
+        
+        // Subtitle changes based on number of visits
+        if visits.count > 1 {
+            let avgRating = visits.reduce(0.0) { $0 + $1.rating } / Double(visits.count)
+            let avgPrice = visits.reduce(0.0) { $0 + $1.price } / Double(visits.count)
+            self.subtitle = "\(visits.count) visits • ⭐ \(String(format: "%.1f", avgRating)) • $\(String(format: "%.2f", avgPrice))"
+        } else {
+            self.subtitle = "⭐ \(String(format: "%.1f", firstVisit.rating)) • $\(String(format: "%.2f", firstVisit.price))"
+        }
+        
         self.type = .visit
-        self.visit = visit
+        self.visits = visits.sorted(by: { $0.dateVisited > $1.dateVisited }) // Sort by most recent first
         self.wishlistLocation = nil
+    }
+    
+    /// Create annotation from a single visit (convenience)
+    init(visit: CoffeeShopVisit) {
+        self.init(visits: [visit])
     }
 
     /// Create annotation from a wishlist location
@@ -52,7 +99,7 @@ struct MapPin: Identifiable {
         self.title = wishlistLocation.shopName
         self.subtitle = "Want to visit"
         self.type = .wishlist
-        self.visit = nil
+        self.visits = []
         self.wishlistLocation = wishlistLocation
     }
 }

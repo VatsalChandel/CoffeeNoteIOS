@@ -107,9 +107,10 @@ class MapViewModel: ObservableObject {
     private func updateAnnotations() {
         var newAnnotations: [MapPin] = []
 
-        // Add visit annotations if enabled
+        // Add visit annotations if enabled - group by location
         if showVisits {
-            let visitAnnotations = visits.map { MapPin(visit: $0) }
+            let groupedVisits = groupVisitsByLocation(visits)
+            let visitAnnotations = groupedVisits.map { MapPin(visits: $0) }
             newAnnotations.append(contentsOf: visitAnnotations)
         }
 
@@ -125,6 +126,28 @@ class MapViewModel: ObservableObject {
         if !annotations.isEmpty {
             zoomToFitAllPins()
         }
+    }
+    
+    /// Group visits by location (same coffee shop)
+    /// Uses placeID if available, otherwise groups by coordinates (within ~50 meters)
+    private func groupVisitsByLocation(_ visits: [CoffeeShopVisit]) -> [[CoffeeShopVisit]] {
+        var grouped: [String: [CoffeeShopVisit]] = [:]
+        
+        for visit in visits {
+            // Use placeID if available for accurate grouping
+            if let placeID = visit.placeID, !placeID.isEmpty {
+                grouped[placeID, default: []].append(visit)
+            } else {
+                // Fallback: group by rounded coordinates (to ~50 meter precision)
+                // This helps group visits to the same shop even without placeID
+                let roundedLat = round(visit.latitude * 1000) / 1000  // ~111 meters
+                let roundedLon = round(visit.longitude * 1000) / 1000
+                let locationKey = "\(roundedLat)_\(roundedLon)_\(visit.shopName)"
+                grouped[locationKey, default: []].append(visit)
+            }
+        }
+        
+        return Array(grouped.values)
     }
 
     // MARK: - Filter Toggles
