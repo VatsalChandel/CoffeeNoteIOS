@@ -22,7 +22,7 @@ Usage:
        --password PASSWORD Test account password (default: testtest)
        --visits N          Number of visits to create (default: 15)
        --wishlist N        Number of wishlist items to create (default: 5)
-       --city CITY         City: seattle, la, portland, nyc, or all (default: all)
+       --city CITY         City: seattle, la, portland, nyc, tokyo, indore, or all (default: all)
        --clear             Clear all visits and wishlist items (no seeding)
 """
 
@@ -541,6 +541,224 @@ SAMPLE_NYC_COFFEE_SHOPS = [
     },
 ]
 
+# Tokyo, Japan coffee shops
+SAMPLE_TOKYO_COFFEE_SHOPS = [
+    {
+        "shopName": "Blue Bottle Coffee Aoyama",
+        "address": "3-13-14 Minamiaoyama, Minato, Tokyo 107-0062",
+        "latitude": 35.6656,
+        "longitude": 139.7144,
+        "drinks": ["New Orleans Iced", "Single Origin Pour Over", "Latte", "Espresso"],
+    },
+    {
+        "shopName": "Fuglen Tokyo",
+        "address": "1-16-11 Tomigaya, Shibuya, Tokyo 151-0063",
+        "latitude": 35.6673,
+        "longitude": 139.6881,
+        "drinks": ["Aeropress", "Cold Brew", "Flat White", "Filter Coffee"],
+    },
+    {
+        "shopName": "Onibus Coffee Nakameguro",
+        "address": "2-14-1 Kamimeguro, Meguro, Tokyo 153-0051",
+        "latitude": 35.6442,
+        "longitude": 139.6988,
+        "drinks": ["Espresso", "Latte", "Pour Over", "Affogato"],
+    },
+    {
+        "shopName": "Koffee Mameya",
+        "address": "4-15-3 Jingumae, Shibuya, Tokyo 150-0001",
+        "latitude": 35.6706,
+        "longitude": 139.7074,
+        "drinks": ["Single Origin", "Hand Drip", "Espresso", "Tasting Flight"],
+    },
+    {
+        "shopName": "Streamer Coffee Company",
+        "address": "1-20-28 Shibuya, Shibuya, Tokyo 150-0002",
+        "latitude": 35.6594,
+        "longitude": 139.7032,
+        "drinks": ["Streamer Latte", "Military Latte", "Flat White", "Americano"],
+    },
+    {
+        "shopName": "Sarutahiko Coffee",
+        "address": "1-6-6 Ebisu, Shibuya, Tokyo 150-0013",
+        "latitude": 35.6467,
+        "longitude": 139.7103,
+        "drinks": ["House Blend", "Single Origin", "Cafe Latte", "Cold Brew"],
+    },
+    {
+        "shopName": "Glitch Coffee & Roasters",
+        "address": "3-16 Kanda Nishikicho, Chiyoda, Tokyo 101-0054",
+        "latitude": 35.6933,
+        "longitude": 139.7589,
+        "drinks": ["Filter Coffee", "Espresso", "Cortado", "Iced Coffee"],
+    },
+    {
+        "shopName": "Omotesando Koffee",
+        "address": "4-15-3 Jingumae, Shibuya, Tokyo 150-0001",
+        "latitude": 35.6707,
+        "longitude": 139.7073,
+        "drinks": ["Koffee", "Latte", "Cappuccino", "Macchiato"],
+    },
+    {
+        "shopName": "Verve Coffee Roasters Tokyo",
+        "address": "5-3-27 Minamiaoyama, Minato, Tokyo 107-0062",
+        "latitude": 35.6616,
+        "longitude": 139.7128,
+        "drinks": ["Streetlevel Espresso", "Flash Brew", "Latte", "Seabright Blend"],
+    },
+    {
+        "shopName": "About Life Coffee Brewers",
+        "address": "1-19-8 Dogenzaka, Shibuya, Tokyo 150-0043",
+        "latitude": 35.6583,
+        "longitude": 139.6947,
+        "drinks": ["Hand Drip", "Espresso", "Cafe Latte", "Cold Brew"],
+    },
+    {
+        "shopName": "Bear Pond Espresso",
+        "address": "2-36-12 Kitazawa, Setagaya, Tokyo 155-0031",
+        "latitude": 35.6619,
+        "longitude": 139.6684,
+        "drinks": ["Angel Stain", "Dirty Chai", "Espresso", "Latte"],
+    },
+    {
+        "shopName": "Switch Coffee Tokyo",
+        "address": "1-17-23 Meguro, Meguro, Tokyo 153-0063",
+        "latitude": 35.6339,
+        "longitude": 139.7159,
+        "drinks": ["Filter", "Espresso", "Flat White", "Batch Brew"],
+    },
+    {
+        "shopName": "Allpress Espresso Tokyo",
+        "address": "3-7-2 Higashishimbashi, Minato, Tokyo 105-0021",
+        "latitude": 35.6594,
+        "longitude": 139.7582,
+        "drinks": ["Flat White", "Long Black", "Espresso", "Iced Latte"],
+    },
+    {
+        "shopName": "Cafe de L'Ambre",
+        "address": "8-10-15 Ginza, Chuo, Tokyo 104-0061",
+        "latitude": 35.6696,
+        "longitude": 139.7632,
+        "drinks": ["Aged Coffee", "Blend No. 7", "Nel Drip", "Iced Coffee"],
+    },
+    {
+        "shopName": "Turret Coffee",
+        "address": "2-12-10 Tsukiji, Chuo, Tokyo 104-0045",
+        "latitude": 35.6673,
+        "longitude": 139.7709,
+        "drinks": ["Latte", "Cappuccino", "Mocha", "Americano"],
+    },
+]
+
+# Indore, India coffee shops
+SAMPLE_INDORE_COFFEE_SHOPS = [
+    {
+        "shopName": "Cafe Terazza",
+        "address": "16/1, South Tukoganj, Indore, MP 452001",
+        "latitude": 22.7195,
+        "longitude": 75.8577,
+        "drinks": ["Cappuccino", "Cold Coffee", "Hazelnut Latte", "Espresso"],
+    },
+    {
+        "shopName": "Mocha - The Coffee Bar",
+        "address": "7, Navlakha Square, Indore, MP 452001",
+        "latitude": 22.7245,
+        "longitude": 75.8720,
+        "drinks": ["Mocha", "Irish Coffee", "Caramel Latte", "Frappe"],
+    },
+    {
+        "shopName": "Cafe 42",
+        "address": "42, Sapna Sangeeta Road, Indore, MP 452001",
+        "latitude": 22.7196,
+        "longitude": 75.8805,
+        "drinks": ["Filter Coffee", "Americano", "Cold Brew", "Tiramisu Latte"],
+    },
+    {
+        "shopName": "The Mango Tree Cafe",
+        "address": "Vijay Nagar, Indore, MP 452010",
+        "latitude": 22.7533,
+        "longitude": 75.8937,
+        "drinks": ["South Indian Filter Coffee", "Latte", "Espresso", "Iced Coffee"],
+    },
+    {
+        "shopName": "Sayaji Cafe",
+        "address": "H/1, Scheme No. 54, Vijay Nagar, Indore, MP 452010",
+        "latitude": 22.7512,
+        "longitude": 75.8958,
+        "drinks": ["Cappuccino", "Affogato", "Mocha", "Espresso Shot"],
+    },
+    {
+        "shopName": "Bake n Shake",
+        "address": "South Tukoganj Main Road, Indore, MP 452001",
+        "latitude": 22.7181,
+        "longitude": 75.8581,
+        "drinks": ["Cold Coffee", "Nutella Shake", "Espresso", "Frappe"],
+    },
+    {
+        "shopName": "Warehouse Cafe",
+        "address": "6, New Palasia, Indore, MP 452001",
+        "latitude": 22.7232,
+        "longitude": 75.8693,
+        "drinks": ["Caramel Macchiato", "Latte", "Flat White", "Pour Over"],
+    },
+    {
+        "shopName": "Bikaner Misthan Bhandar",
+        "address": "Sarafa Bazaar, Indore, MP 452002",
+        "latitude": 22.7179,
+        "longitude": 75.8559,
+        "drinks": ["Masala Chai", "Filter Coffee", "Ginger Coffee", "Cardamom Coffee"],
+    },
+    {
+        "shopName": "Cafe Infinitea",
+        "address": "Bhawarkuan Square, Indore, MP 452001",
+        "latitude": 22.7295,
+        "longitude": 75.8428,
+        "drinks": ["Cappuccino", "Iced Latte", "Mocha Frappe", "Espresso"],
+    },
+    {
+        "shopName": "The Rolling Jar",
+        "address": "Scheme 78, Vijay Nagar, Indore, MP 452010",
+        "latitude": 22.7518,
+        "longitude": 75.8952,
+        "drinks": ["Cold Brew", "Vanilla Latte", "Caramel Macchiato", "Irish Coffee"],
+    },
+    {
+        "shopName": "Third Wave Coffee",
+        "address": "DB Mall, Indore, MP 452001",
+        "latitude": 22.7240,
+        "longitude": 75.8565,
+        "drinks": ["Pour Over", "Single Origin", "Cortado", "Oat Latte"],
+    },
+    {
+        "shopName": "Starbucks Indore",
+        "address": "Phoenix Citadel Mall, Indore, MP 452010",
+        "latitude": 22.7470,
+        "longitude": 75.8920,
+        "drinks": ["Pike Place Roast", "Caramel Macchiato", "Java Chip Frappe", "Latte"],
+    },
+    {
+        "shopName": "Chai Sutta Bar",
+        "address": "MG Road, Indore, MP 452001",
+        "latitude": 22.7175,
+        "longitude": 75.8576,
+        "drinks": ["Kulhad Chai", "Tandoori Chai", "Filter Coffee", "Cold Coffee"],
+    },
+    {
+        "shopName": "Blue Tokai Coffee",
+        "address": "Vijay Nagar Square, Indore, MP 452010",
+        "latitude": 22.7508,
+        "longitude": 75.8945,
+        "drinks": ["Vienna Roast", "Single Estate", "Cold Brew", "Cappuccino"],
+    },
+    {
+        "shopName": "Madras Coffee House",
+        "address": "Race Course Road, Indore, MP 452003",
+        "latitude": 22.7283,
+        "longitude": 75.8472,
+        "drinks": ["Filter Kaapi", "Madras Coffee", "Espresso", "Latte"],
+    },
+]
+
 SAMPLE_NOTES = [
     "Great atmosphere, will definitely come back!",
     "The barista recommended this drink and it was perfect.",
@@ -936,9 +1154,9 @@ def main():
     )
     parser.add_argument(
         "--city",
-        choices=["seattle", "la", "portland", "nyc", "all"],
+        choices=["seattle", "la", "portland", "nyc", "tokyo", "indore", "all"],
         default="all",
-        help="City for coffee shops: seattle, la, portland, nyc, or all (default: all)",
+        help="City: seattle, la, portland, nyc, tokyo, indore, or all (default: all)",
     )
     parser.add_argument(
         "--clear",
@@ -953,6 +1171,8 @@ def main():
         "la": ("Los Angeles", SAMPLE_LA_COFFEE_SHOPS),
         "portland": ("Portland", SAMPLE_PORTLAND_COFFEE_SHOPS),
         "nyc": ("New York City", SAMPLE_NYC_COFFEE_SHOPS),
+        "tokyo": ("Tokyo", SAMPLE_TOKYO_COFFEE_SHOPS),
+        "indore": ("Indore", SAMPLE_INDORE_COFFEE_SHOPS),
     }
 
     # Determine which cities to seed
