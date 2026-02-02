@@ -124,4 +124,36 @@ class AuthViewModel: ObservableObject {
 
         isLoading = false
     }
+
+    // MARK: - Delete Account
+    /// Delete the current user's account and all associated data
+    func deleteAccount() async throws {
+        guard let userId = currentUser?.uid else {
+            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No user is currently signed in"])
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            // 1. Delete all user data from Firestore first
+            try await profileService.deleteAllUserData(userId: userId)
+            print("✅ Deleted all Firestore data for user: \(userId)")
+
+            // 2. Delete the Firebase Auth account
+            try await authService.deleteAccount()
+            print("✅ Deleted Firebase Auth account")
+
+            // 3. Update local state
+            self.currentUser = nil
+            self.isAuthenticated = false
+
+        } catch {
+            self.errorMessage = error.localizedDescription
+            isLoading = false
+            throw error
+        }
+
+        isLoading = false
+    }
 }

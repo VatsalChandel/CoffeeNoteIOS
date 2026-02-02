@@ -53,4 +53,15 @@ class AuthenticationService {
         try await auth.sendPasswordReset(withEmail: email)
         print("✅ Password reset email sent to: \(email)")
     }
+
+    // MARK: - Delete Account
+    /// Delete the current user's account from Firebase Auth
+    func deleteAccount() async throws {
+        guard let user = auth.currentUser else {
+            throw NSError(domain: "AuthenticationService", code: 1, userInfo: [NSLocalizedDescriptionKey: "No user is currently signed in"])
+        }
+
+        try await user.delete()
+        print("✅ User account deleted from Firebase Auth")
+    }
 }

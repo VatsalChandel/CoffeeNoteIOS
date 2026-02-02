@@ -14,6 +14,8 @@ struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showingSignOutConfirmation = false
     @State private var showingDeleteAccountConfirmation = false
+    @State private var isDeletingAccount = false
+    @State private var deleteError: String?
 
     var body: some View {
         NavigationView {
@@ -61,10 +63,41 @@ struct ProfileView: View {
             .alert("Delete Account?", isPresented: $showingDeleteAccountConfirmation) {
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
-                    // TODO: Implement account deletion
+                    deleteAccount()
                 }
             } message: {
                 Text("This action cannot be undone. All your data will be permanently deleted.")
+            }
+            .alert("Error", isPresented: .constant(deleteError != nil)) {
+                Button("OK") {
+                    deleteError = nil
+                }
+            } message: {
+                if let error = deleteError {
+                    Text(error)
+                }
+            }
+            .overlay {
+                if isDeletingAccount {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .ignoresSafeArea()
+                        
+                        VStack(spacing: 16) {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .coffeeBrown))
+                                .scaleEffect(1.5)
+                            
+                            Text("Deleting account...")
+                                .font(.bodyText)
+                                .foregroundColor(.textPrimary)
+                        }
+                        .padding(30)
+                        .background(Color.cardBackground)
+                        .cornerRadius(15)
+                        .shadow(radius: 20)
+                    }
+                }
             }
         }
     }
@@ -313,6 +346,30 @@ struct ProfileView: View {
         guard let userId = authViewModel.currentUser?.uid else { return }
         Task {
             await viewModel.upgradeToPremium(userId: userId)
+        }
+    }
+
+    private func deleteAccount() {
+        guard let userId = authViewModel.currentUser?.uid else {
+            deleteError = "No user is currently signed in"
+            return
+        }
+
+        isDeletingAccount = true
+        deleteError = nil
+
+        Task {
+            do {
+                // Delete account through AuthViewModel which handles both Firestore and Auth
+                try await authViewModel.deleteAccount()
+                print("✅ Account successfully deleted")
+            } catch {
+                isDeletingAccount = false
+                deleteError = "Failed to delete account: \(error.localizedDescription)"
+                print("❌ Error deleting account: \(error.localizedDescription)")
+            }
+            // Note: isDeletingAccount will remain true if successful, as the user will be signed out
+            // and the view will disappear
         }
     }
 }

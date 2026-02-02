@@ -146,4 +146,28 @@ class ProfileViewModel: ObservableObject {
         statistics = nil
         userProfile = nil
     }
+
+    /// Delete the user's account and all data
+    func deleteAccount(userId: String) async throws {
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            // Delete all user data from Firestore
+            try await profileService.deleteAllUserData(userId: userId)
+
+            // Clean up local state
+            stopListening()
+            visits = []
+            wishlistItems = []
+            statistics = nil
+            userProfile = nil
+
+            isLoading = false
+        } catch {
+            errorMessage = "Failed to delete account: \(error.localizedDescription)"
+            isLoading = false
+            throw error
+        }
+    }
 }

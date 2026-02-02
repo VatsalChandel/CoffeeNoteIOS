@@ -15,6 +15,7 @@ struct VisitDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showDeleteConfirmation = false
+    @State private var showEditView = false
     @State private var region: MKCoordinateRegion
 
     private let visitService = VisitService()
@@ -148,6 +149,24 @@ struct VisitDetailView: View {
                         .background(Color.cardBackground)
                         .cornerRadius(15)
                     }
+                    
+                    
+                    
+                    // Edit Button 
+                    Button(action: {
+                        showEditView = true
+                    }) {
+                        HStack {
+                            Image(systemName: "pencil")
+                            Text("Edit Visit")
+                        }
+                        .font(.button)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.coffeeBrown)
+                        .cornerRadius(10)
+                    }
 
                     // Delete Button
                     Button(role: .destructive, action: {
@@ -184,6 +203,14 @@ struct VisitDetailView: View {
                 }
             } message: {
                 Text("Are you sure you want to delete this visit? This action cannot be undone.")
+            }
+            .sheet(isPresented: $showEditView) {
+                EditVisitView(visit: visit, onVisitUpdated: {
+                    // Optionally refresh data or dismiss detail view
+                    // For now, we'll just close the edit sheet
+                    // The parent view will refresh when this view is dismissed
+                })
+                .environmentObject(authViewModel)
             }
         }
     }

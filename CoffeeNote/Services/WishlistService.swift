@@ -164,4 +164,22 @@ class WishlistService {
         let wishlist = try await fetchWishlist(for: userId)
         return wishlist.count
     }
+
+    // MARK: - Bulk Delete
+
+    /// Delete all wishlist items for a user
+    /// - Parameter userId: User ID whose wishlist should be deleted
+    func deleteAllWishlistItems(for userId: String) async throws {
+        let collection = wishlistCollection(for: userId)
+        let snapshot = try await collection.getDocuments()
+
+        // Delete all documents in batches
+        let batch = db.batch()
+        for document in snapshot.documents {
+            batch.deleteDocument(document.reference)
+        }
+
+        try await batch.commit()
+        print("✅ Deleted all wishlist items for user: \(userId) (count: \(snapshot.documents.count))")
+    }
 }

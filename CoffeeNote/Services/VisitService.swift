@@ -154,4 +154,22 @@ class VisitService {
         let visits = try await fetchVisits(for: userId)
         return visits.count
     }
+
+    // MARK: - Bulk Delete
+
+    /// Delete all visits for a user
+    /// - Parameter userId: User ID whose visits should be deleted
+    func deleteAllVisits(for userId: String) async throws {
+        let collection = visitsCollection(for: userId)
+        let snapshot = try await collection.getDocuments()
+
+        // Delete all documents in batches
+        let batch = db.batch()
+        for document in snapshot.documents {
+            batch.deleteDocument(document.reference)
+        }
+
+        try await batch.commit()
+        print("✅ Deleted all visits for user: \(userId) (count: \(snapshot.documents.count))")
+    }
 }

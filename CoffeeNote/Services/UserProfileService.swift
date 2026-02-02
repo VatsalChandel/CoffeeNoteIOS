@@ -32,7 +32,7 @@ class UserProfileService {
             id: userId,
             email: email,
             name: name,
-            subscriptionTier: .free
+            subscriptionTier: .premium
         )
 
         let data = profile.toDictionary()
@@ -137,6 +137,36 @@ class UserProfileService {
     func deleteUserProfile(userId: String) async throws {
         try await profilesCollection.document(userId).delete()
         print("✅ User profile deleted: \(userId)")
+    }
+
+    /// Delete all user data (profile and all subcollections)
+    /// - Parameter userId: User ID whose data should be deleted
+    func deleteAllUserData(userId: String) async throws {
+        // Delete visits subcollection
+        let visitsCollection = db.collection("users").document(userId).collection("visits")
+        let visitsSnapshot = try await visitsCollection.getDocuments()
+        
+        let visitsBatch = db.batch()
+        for document in visitsSnapshot.documents {
+            visitsBatch.deleteDocument(document.reference)
+        }
+        try await visitsBatch.commit()
+        print("✅ Deleted \(visitsSnapshot.documents.count) visits for user: \(userId)")
+
+        // Delete wishlist subcollection
+        let wishlistCollection = db.collection("users").document(userId).collection("wishlist")
+        let wishlistSnapshot = try await wishlistCollection.getDocuments()
+        
+        let wishlistBatch = db.batch()
+        for document in wishlistSnapshot.documents {
+            wishlistBatch.deleteDocument(document.reference)
+        }
+        try await wishlistBatch.commit()
+        print("✅ Deleted \(wishlistSnapshot.documents.count) wishlist items for user: \(userId)")
+
+        // Finally, delete the user profile document
+        try await deleteUserProfile(userId: userId)
+        print("✅ All user data deleted for: \(userId)")
     }
 
     // MARK: - Subscription Helpers
